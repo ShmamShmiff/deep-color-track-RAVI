@@ -90,6 +90,7 @@ def ravi2avi(ravi_file_name, out_file_name):
 
 
     max_temp = -1460
+    max_temp_print = -1460
 
     #result = cv2.VideoWriter('c11_out.avi', cv2.VideoWriter_fourcc(*'MJPG'),10, (width, height))
     #result = cv2.VideoWriter('c11_out.avi', cv2.VideoWriter_fourcc('M','J','P','G') ,10, (rows-1,cols),0)
@@ -118,7 +119,7 @@ def ravi2avi(ravi_file_name, out_file_name):
         # data_line = frame[0, :]
         #frame_roi = frame[1:, :]  # Ignore the first row.
         frame_roi = frame[1:, :]
-        #max_temp = np.max([max_temp, np.max(frame_roi)])
+        max_temp_print = np.max([max_temp_print, np.max(frame_roi)])
 
         frame_roi2 = frame_roi.copy()
         frame_roi2[frame_roi2 <= l_s] = l_s
@@ -138,7 +139,7 @@ def ravi2avi(ravi_file_name, out_file_name):
         #normed = cv2.normalize(frame_roi, None, 0, 255, cv2.NORM_MINMAX, cv2.CV_8U)
         #result.write(normed)
         #normed = cv2.resize(normed, (cols*scale,rows*scale))
-        normed = cv2.applyColorMap(normed, cv2.COLORMAP_TURBO)
+        normed = cv2.applyColorMap(normed, cv2.COLORMAP_JET)
         #normed_rgb = cv2.cvtColor(normed,cv2.COLORMAP_JET)
         result.write(normed)
 
@@ -146,7 +147,7 @@ def ravi2avi(ravi_file_name, out_file_name):
         
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
-        print(max_temp)
+        print(max_temp_print)
     cap.release()
     result.release()
     cv2.destroyAllWindows()

@@ -5,7 +5,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
   
 import sys
-from ravi2avi import ravi2avi
+from deep_color_track_RAVI import color_track
   
 # A simple widget consisting of a QLabel, a QLineEdit and a 
 # QPushButton. The class could be implemented in a separate 
@@ -105,7 +105,7 @@ class Demo(QDialog):
         # Ensure our window stays in front and give it a title
         self.setWindowFlags(Qt.WindowStaysOnTopHint)
         self.setWindowTitle("File Browsing Dialog")
-        self.setFixedSize(400, 200)
+        self.setFixedSize(400, 400)
         
         # Create and assign the main (vertical) layout.
         vlayout = QVBoxLayout()
@@ -120,11 +120,13 @@ class Demo(QDialog):
         vlayout = QVBoxLayout()
     	
         self.fileFB = FileBrowser('Open File', FileBrowser.OpenFile)
+        self.fileFB2 = FileBrowser('Open File', FileBrowser.OpenFile)
         self.filesFB = FileBrowser('Open Files', FileBrowser.OpenFiles)
         self.dirFB = FileBrowser('Open Dir', FileBrowser.OpenDirectory)
         self.saveFB = FileBrowser('Save File', FileBrowser.SaveFile)
         
         vlayout.addWidget(self.fileFB)
+        vlayout.addWidget(self.fileFB2)
         #vlayout.addWidget(self.filesFB)
         #vlayout.addWidget(self.dirFB)
         vlayout.addWidget(self.saveFB)
@@ -142,7 +144,7 @@ class Demo(QDialog):
         parentLayout.addLayout(hlayout)
     #--------------------------------------------------------------------
     def buttonAction(self):
-        ravi2avi(self.fileFB.getPaths()[0],self.saveFB.getPaths()[0])
+        color_track(self.fileFB.getPaths()[0],self.fileFB2.getPaths()[0],self.saveFB.getPaths()[0])
         #print(self.fileFB.getPaths()[0], str(self.fileFB.getPaths()))
         #print(self.filesFB.getPaths())
         #print(self.dirFB.getPaths())
